@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Estudos & Organização Escolar</title>
+    <!-- Fonte Inter do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* REGRA BOX MODEL: box-sizing garante que padding e border não alterem o tamanho total dos elementos */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #eab308;
+            --border-color: #334155;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* Container Principal Responsivo */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        header p {
+            color: #c7d2fe;
+            font-size: 0.95rem;
+        }
+
+        /* Navegação Principal (Abas Superiores) */
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            scrollbar-width: thin;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .tab-btn {
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            min-height: 48px; /* Botões grandes para celular */
+        }
+
+        .tab-btn:hover {
+            background-color: var(--bg-card-hover);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Seções e Visibilidade */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilização de Cards Genericos */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* Botões Acessíveis (Celular) */
+        .btn {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px; /* Acessibilidade Mobile */
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        }
+
+        .btn-secondary {
+            background: #475569;
+            color: white;
+        }
+
+        /* Inputs e Formatações */
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-blue);
+        }
+
+        /* Grid de Seleção de Matérias */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .subject-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            min-height: 80px;
+        }
+
+        .subject-btn i {
+            font-size: 1.5rem;
+        }
+
+        .subject-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .subject-btn.active {
+            background-color: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        /* Caixas de Resumo e Quiz */
+        .summary-box {
+            background-color: rgba(15, 23, 42, 0.6);
+            border-left: 4px solid var(--accent-blue);
+            padding: 16px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin-bottom: 20px;
+        }
+
+        .summary-box h3 {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .quiz-option {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-purple);
+            background-color: rgba(168, 85, 247, 0.1);
+        }
+
+        .quiz-option.correct {
+            background-color: rgba(34, 197, 94, 0.2);
+            border-color: var(--accent-green);
+            color: #4ade80;
+        }
+
+        .quiz-option.wrong {
+            background-color: rgba(239, 68, 68, 0.2);
+            border-color: var(--accent-red);
+            color: #f87171;
+        }
+
+        .feedback-box {
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Pomodoro Timer */
+        .timer-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--accent-blue);
+            font-family: monospace;
+            margin: 16px 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Lista de Tarefas (To-Do) */
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-primary);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .todo-item.priority-Alta { border-left-color: var(--accent-red); }
+        .todo-item.priority-Média { border-left-color: var(--accent-yellow); }
+        .todo-item.priority-Baixa { border-left-color: var(--accent-green); }
+
+        .todo-item.done span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-red { background-color: rgba(239, 68, 68, 0.2); color: #f87171; }
+        .badge-yellow { background-color: rgba(234, 179, 8, 0.2); color: #fde047; }
+        .badge-green { background-color: rgba(34, 197, 94, 0.2); color: #4ade80; }
+
+        /* Grade da Tabela Periódica Mini */
+        .ptable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .element-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .element-card:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .element-symbol {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+        }
+
+        .element-name {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Flashcards para Geografia */
+        .flashcard {
+            background-color: var(--bg-primary);
+            border: 2px dashed var(--accent-purple);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        /* Explicação do Código no Final */
+        .code-explanation {
+            background-color: #020617;
+            border: 1px solid #1e293b;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .code-explanation h2 {
+            color: var(--accent-yellow);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .code-explanation p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* Ajustes Responsivos */
+        @media (min-width: 640px) {
+            header h1 { font-size: 2.2rem; }
+            .btn { width: auto; }
+            .timer-controls { justify-content: center; }
+            .grid-2col {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Cabeçalho -->
+        <header>
+            <h1><i class="fa-solid fa-graduation-cap"></i> Central de Estudos</h1>
+            <p>Seu portal completo de matérias do Ensino Médio e organização escolar</p>
+        </header>
+
+        <!-- Menu de Navegação em Abas -->
+        <nav class="nav-tabs" role="tablist">
+            <button class="tab-btn active" onclick="switchTab('subjects')">
+                <i class="fa-solid fa-book-open"></i> Matérias & Quizzes
+            </button>
+            <button class="tab-btn" onclick="switchTab('calculators')">
+                <i class="fa-solid fa-calculator"></i> Calculadoras do Aluno
+            </button>
+            <button class="tab-btn" onclick="switchTab('organizer')">
+                <i class="fa-solid fa-calendar-check"></i> Cronograma & Tarefas
+            </button>
+        </nav>
+
+        <!-- ABA 1: MATÉRIAS E QUIZZES -->
+        <section id="tab-subjects" class="tab-content active">
+            <!-- Seleção de Matérias -->
+            <div class="subject-grid">
+                <button class="subject-btn active" onclick="selectSubject('math')">
+                    <i class="fa-solid fa-calculator" style="color: #38bdf8;"></i>
+                    <span>Matemática</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('port')">
+                    <i class="fa-solid fa-pen-nib" style="color: #a855f7;"></i>
+                    <span>Português</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('geo')">
+                    <i class="fa-solid fa-earth-americas" style="color: #22c55e;"></i>
+                    <span>Geografia</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('hist')">
+                    <i class="fa-solid fa-landmark" style="color: #eab308;"></i>
+                    <span>História</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('bio')">
+                    <i class="fa-solid fa-dna" style="color: #ec4899;"></i>
+                    <span>Biologia</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('phys')">
+                    <i class="fa-solid fa-bolt" style="color: #f97316;"></i>
+                    <span>Física</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('chem')">
+                    <i class="fa-solid fa-flask" style="color: #06b6d4;"></i>
+                    <span>Química</span>
+                </button>
+                <button class="subject-btn" onclick="selectSubject('eng')">
+                    <i class="fa-solid fa-language" style="color: #6366f1;"></i>
+                    <span>Inglês</span>
+                </button>
+            </div>
+
+            <!-- Conteúdo Dinâmico da Matéria -->
+            <div id="subject-container">
+                <!-- Inserido dinamicamente via JS -->
+            </div>
+        </section>
+
+        <!-- ABA 2: CALCULADORAS DO ALUNO -->
+        <section id="tab-calculators" class="tab-content">
+            <div class="grid-2col">
+                <!-- Simulador de Notas -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-chart-line" style="color: var(--accent-blue);"></i> Simulador de Notas</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Descubra quanto você precisa tirar na prova final para passar!</p>
+                    
+                    <div class="input-group">
+                        <label>Nota 1º Trimestre/Bimestre</label>
+                        <input type="number" id="grade1" class="input-field" placeholder="Ex: 6.5" step="0.1" min="0" max="10">
+                    </div>
+                    <div class="input-group">
+                        <label>Nota 2º Trimestre/Bimestre</label>
+                        <input type="number" id="grade2" class="input-field" placeholder="Ex: 5.0" step="0.1" min="0" max="10">
+                    </div>
+                    <div class="input-group">
+                        <label>Média Mínima para Passar</label>
+                        <input type="number" id="gradeTarget" class="input-field" value="6.0" step="0.1" min="0" max="10">
+                    </div>
+                    <button class="btn" onclick="calculateGradeNeeded()">Calcular Nota Necessária</button>
+                    
+                    <div id="grade-result" class="feedback-box" style="margin-top: 16px;"></div>
+                </div>
+
+                <!-- Calculadora de Faltas -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-user-clock" style="color: var(--accent-red);"></i> Calculadora de Faltas</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Verifique seu limite de 25% de faltas permitidas por lei.</p>
+                    
+                    <div class="input-group">
+                        <label>Carga Horária Total do Ano (Aulas)</label>
+                        <input type="number" id="totalClasses" class="input-field" value="800" placeholder="Ex: 800">
+                    </div>
+                    <div class="input-group">
+                        <label>Faltas Acumuladas (em horas/aulas)</label>
+                        <input type="number" id="absences" class="input-field" placeholder="Ex: 40">
+                    </div>
+                    <button class="btn btn-danger" onclick="calculateAbsences()">Verificar Faltas</button>
+                    
+                    <div id="absence-result" class="feedback-box" style="margin-top: 16px;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA 3: ORGANIZADOR E CRONOGRAMA -->
+        <section id="tab-organizer" class="tab-content">
+            <div class="grid-2col">
+                <!-- Pomodoro Timer -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-stopwatch" style="color: var(--accent-purple);"></i> Cronômetro Pomodoro</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">25 minutos de foco total, 5 minutos de descanso!</p>
+                    
+                    <div class="timer-display" id="timer-display">25:00</div>
+                    
+                    <div class="timer-controls">
+                        <button class="btn btn-success" onclick="startTimer()"><i class="fa-solid fa-play"></i> Iniciar</button>
+                        <button class="btn btn-secondary" onclick="pauseTimer()"><i class="fa-solid fa-pause"></i> Pausar</button>
+                        <button class="btn btn-danger" onclick="resetTimer()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                    </div>
+                </div>
+
+                <!-- Checklist de Tarefas -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-list-check" style="color: var(--accent-green);"></i> Tarefas e Provas</h2>
+                    
+                    <div class="input-group">
+                        <input type="text" id="taskTitle" class="input-field" placeholder="Nome da tarefa ou prova...">
+                    </div>
+                    <div class="input-group" style="display: flex; gap: 8px;">
+                        <select id="taskPriority" class="input-field" style="width: 50%;">
+                            <option value="Baixa">Prioridade Baixa</option>
+                            <option value="Média">Prioridade Média</option>
+                            <option value="Alta">Prioridade Alta</option>
+                        </select>
+                        <button class="btn btn-success" style="width: 50%;" onclick="addTask()">Adicionar</button>
+                    </div>
+
+                    <div id="todo-list" style="margin-top: 16px;">
+                        <!-- Tarefas Renderizadas Aqui -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROTEIRO PARA APRESENTAÇÃO EM SALA -->
+        <div class="code-explanation">
+            <h2><i class="fa-solid fa-chalkboard-user"></i> Dica para a sua Apresentação em Sala (1 Minuto)!</h2>
+            <p><strong>Conceito do Box Model:</strong> Explicar ao professor que usamos <code>box-sizing: border-box</code> em CSS. Isso garante que as bordas e o padding fiquem dentro da largura especificada dos cards, evitando que a tela do celular quebre!</p>
+            <p><strong>Acessibilidade Mobile:</strong> Todos os botões principais possuem padding generoso e altura mínima de 44px a 48px para facilitar o toque na tela de qualquer smartphone.</p>
+            <p><strong>Armazenamento Local:</strong> A lista de tarefas salva suas pendências usando a API <code>localStorage</code> do navegador. Mesmo recarregando a página, suas tarefas de estudo continuam lá!</p>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           DADOS E CONTEÚDOS DAS MATÉRIAS (ENSINO MÉDIO)
+           ========================================================================== */
+        const subjectsData = {
+            math: {
+                title: 'Matemática',
+                icon: 'fa-calculator',
+                color: '#38bdf8',
+                summary: '<strong>Regra de Três Direta:</strong> Utilizada quando duas grandezas aumentam ou diminuem na mesma proporção. Multiplica-se em cruz: <em>a/b = c/x → a · x = b · c</em>.',
+                quiz: {
+                    question: 'Se 4 cadernos custam R$ 32,00, quanto custarão 7 cadernos do mesmo modelo?',
+                    options: ['R$ 48,00', 'R$ 56,00', 'R$ 64,00', 'R$ 52,00'],
+                    correct: 1,
+                    explanation: 'Passo a Passo: 4 / 32 = 7 / x. Multiplicando cruzado: 4x = 224 → x = 224 / 4 = R$ 56,00.'
+                },
+                toolHTML: `
+                    <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                        <h4 style="margin-bottom: 8px; color: var(--accent-blue);">Calculadora de Regra de Três</h4>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                            <input type="number" id="r3_a" class="input-field" placeholder="A (Ex: 4 cadernos)"> está para 
+                            <input type="number" id="r3_b" class="input-field" placeholder="B (Ex: R$ 32)">
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                            <input type="number" id="r3_c" class="input-field" placeholder="C (Ex: 7 cadernos)"> está para 
+                            <input type="text" class="input-field" value="X (Resultado)" disabled style="background:#1e293b; color:var(--accent-blue); font-weight:bold;">
+                        </div>
+                        <button class="btn" onclick="calcRegraDeTres()">Calcular X</button>
+                        <div id="r3-res" style="margin-top:10px; font-weight:bold; color:var(--accent-green);"></div>
+                    </div>
+                `
+            },
+            port: {
+                title: 'Língua Portuguesa',
+                icon: 'fa-pen-nib',
+                color: '#a855f7',
+                summary: '<strong>Uso da Crase (à):</strong> É a fusão da preposição <em>a</em> com o artigo feminino <em>a</em>. Regra rápida: Troque a palavra feminina por uma masculina. Se virar <strong>"ao"</strong>, usa-se crase! Ex: "Vou à escola" → "Vou ao colégio".',
+                quiz: {
+                    question: 'Assinale a frase em que o uso da crase está CORRETO:',
+                    options: [
+                        'Entreguei o trabalho à um professor.',
+                        'Fomos à praia no domingo ensolarado.',
+                        'Ele começou à falar sem parar.',
+                        'Chegamos à caminhar por horas.'
+                    ],
+                    correct: 1,
+                    explanation: 'Correto: "Fomos à praia" (Fomos ao litoral). Não se usa crase antes de verbo ("falar", "caminhar") nem antes de substantivos masculinos ("um").'
+                },
+                toolHTML: `
+                    <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                        <h4 style="margin-bottom: 8px; color: var(--accent-purple);">Testador Rápido de Crase</h4>
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">Substitua a palavra feminina por uma masculina para testar:</p>
+                        <input type="text" id="craseSubst" class="input-field" placeholder="Ex: colégio, clube, professor" style="margin-bottom:8px;">
+                        <button class="btn" onclick="testCrase()">Testar Regra</button>
+                        <div id="crase-res" style="margin-top:10px; font-size:0.9rem;"></div>
+                    </div>
+                `
+            },
+            geo: {
+                title: 'Geografia',
+                icon: 'fa-earth-americas',
+                color: '#22c55e',
+                summary: '<strong>Biomas Brasileiros:</strong> A Amazônia é a maior floresta tropical do mundo. O Cerrado é a savana brasileira (segundo maior bioma). A Caatinga é exclusiva do Brasil (clima semiárido).',
+                quiz: {
+                    question: 'Qual é o único bioma estritamente endêmico (exclusivo) do território brasileiro?',
+                    options: ['Mata Atlântica', 'Cerrado', 'Caatinga', 'Pantanal'],
+                    correct: 2,
+                    explanation: 'A Caatinga é o único bioma 100% brasileiro, adaptado às condições do clima semiárido no Nordeste.'
+                },
+                toolHTML: `
+                    <div>
+                        <h4 style="margin-bottom: 8px; color: var(--accent-green);">Flashcard Interativo de Biomas</h4>
+                        <div class="flashcard" id="geoCard" onclick="flipGeoCard()">
+                            Clique para ver a característica do bioma: CERRADO
+                        </div>
+                    </div>
+                `
+            },
+            hist: {
+                title: 'História',
+                icon: 'fa-landmark',
+                color: '#eab308',
+                summary: '<strong>Era Vargas (1930-1945):</strong> Período em que Getúlio Vargas governou o Brasil. Destaques: Criação da CLT (Leis do Trabalho), industrialização e o período ditatorial do Estado Novo (1937-1945).',
+                quiz: {
+                    question: 'A criação da CLT (Consolidação das Leis do Trabalho) ocorreu durante qual período histórico brasileiro?',
+                    options: ['Primeira República', 'Era Vargas', 'Ditadura Militar', 'Juscelino Kubitschek'],
+                    correct: 1,
+                    explanation: 'A CLT foi promulgada por Getúlio Vargas em 1º de maio de 1943, marco da Era Vargas.'
+                },
+                toolHTML: `
+                    <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                        <h4 style="color: var(--accent-yellow); margin-bottom:8px;">Linha do Tempo: Brasil República</h4>
+                        <ul style="font-size:0.85rem; padding-left:20px; color:var(--text-muted); line-height:1.8;">
+                            <li><strong>1889:</strong> Proclamação da República</li>
+                            <li><strong>1930:</strong> Início da Era Vargas</li>
+                            <li><strong>1964:</strong> Golpe Civil-Militar</li>
+                            <li><strong>1985:</strong> Redemocratização (Nova República)</li>
+                        </ul>
+                    </div>
+                `
+            },
+            bio: {
+                title: 'Biologia',
+                icon: 'fa-dna',
+                color: '#ec4899',
+                summary: '<strong>Genética - Primeira Lei de Mendel:</strong> Cada caráter é determinado por um par de fatores (genes) que se separam na formação dos gametas (Ex: Aa → A e a).',
+                quiz: {
+                    question: 'No cruzamento de dois indivíduos heterozigotos (Aa x Aa), qual é a proporção genotípica esperada?',
+                    options: ['100% Aa', '50% AA e 50% aa', '25% AA, 50% Aa, 25% aa', '75% AA e 25% aa'],
+                    correct: 2,
+                    explanation: 'Quadro de Punnett para Aa x Aa resulta em: 1 AA (25%), 2 Aa (50%) e 1 aa (25%).'
+                },
+                toolHTML: `
+                    <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                        <h4 style="color: #ec4899; margin-bottom:8px;">Simulador de Cruzamento Monohíbrido (Aa x Aa)</h4>
+                        <p style="font-size:0.85rem; color:var(--text-muted);">Resultados dos Gametas:</p>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:6px; margin-top:8px; text-align:center;">
+                            <div style="background:#1e293b; padding:8px; border-radius:4px; font-weight:bold; color:#4ade80;">AA (25%) Dominante</div>
+                            <div style="background:#1e293b; padding:8px; border-radius:4px; font-weight:bold; color:#38bdf8;">Aa (25%) Heterozigoto</div>
+                            <div style="background:#1e293b; padding:8px; border-radius:4px; font-weight:bold; color:#38bdf8;">Aa (25%) Heterozigoto</div>
+                            <div style="background:#1e293b; padding:8px; border-radius:4px; font-weight:bold; color:#f87171;">aa (25%) Recessivo</div>
+                        </div>
+                    </div>
+                `
+            },
+            phys: {
+                title: 'Física',
+                icon: 'fa-bolt',
+                color: '#f97316',
+                summary: '<strong>Velocidade Média (Vm):</strong> Calculada pela variação do espaço (Δs) dividida pela variação do tempo (Δt): <em>Vm = Δs / Δt</em>. Dica: Para passar de m/s para km/h, multiplique por 3,6!',
+                quiz: {
+                    question: 'Um carro percorre 180 km em 2 horas. Qual é a sua velocidade média?',
+                    options: ['60 km/h', '90 km/h', '100 km/h', '120 km/h'],
+                    correct: 1,
+                    explanation: 'Vm = Δs / Δt = 180 km / 2 h = 90 km/h.'
+                },
+                toolHTML: `
+                    <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                        <h4 style="color: #f97316; margin-bottom:8px;">Calculadora de Velocidade Média</h4>
+                        <div style="display:flex; gap:8px; margin-bottom:8px;">
+                            <input type="number" id="phys_s" class="input-field" placeholder="Distância (km)">
+                            <input type="number" id="phys_t" class="input-field" placeholder="Tempo (horas)">
+                        </div>
+                        <button class="btn" onclick="calcPhysicsSpeed()">Calcular Velocidade</button>
+                        <div id="phys-res" style="margin-top:10px; font-weight:bold; color:var(--accent-blue);"></div>
+                    </div>
+                `
+            },
+            chem: {
+                title: 'Química',
+                icon: 'fa-flask',
+                color: '#06b6d4',
+                summary: '<strong>Tabela Periódica:</strong> Os elementos estão organizados em ordem crescente de número atômico (Z). As colunas são Famílias/Grupos e as linhas são Períodos.',
+                quiz: {
+                    question: 'Qual é o elemento químico representado pelo símbolo "Na"?',
+                    options: ['Nitrogênio', 'Níquel', 'Sódio', 'Nióbio'],
+                    correct: 2,
+                    explanation: 'Na vem do latim "Natrium", que é o Sódio (Número atômico Z = 11).'
+                },
+                toolHTML: `
+                    <div>
+                        <h4 style="color: #06b6d4; margin-bottom:8px;">Mini Tabela Periódica (Elementos Chave)</h4>
+                        <div class="ptable-grid">
+                            <div class="element-card" onclick="alert('Hidrogênio (H) - Número Atômico: 1')"><div class="element-symbol">H</div><div class="element-name">Hidrogênio</div></div>
+                            <div class="element-card" onclick="alert('Carbono (C) - Número Atômico: 6')"><div class="element-symbol">C</div><div class="element-name">Carbono</div></div>
+                            <div class="element-card" onclick="alert('Nitrogênio (N) - Número Atômico: 7')"><div class="element-symbol">N</div><div class="element-name">Nitrogênio</div></div>
+                            <div class="element-card" onclick="alert('Oxigênio (O) - Número Atômico: 8')"><div class="element-symbol">O</div><div class="element-name">Oxigênio</div></div>
+                            <div class="element-card" onclick="alert('Sódio (Na) - Número Atômico: 11')"><div class="element-symbol">Na</div><div class="element-name">Sódio</div></div>
+                            <div class="element-card" onclick="alert('Cloro (Cl) - Número Atômico: 17')"><div class="element-symbol">Cl</div><div class="element-name">Cloro</div></div>
+                        </div>
+                    </div>
+                `
+            },
+            eng: {
+                title: 'Língua Inglesa',
+                icon: 'fa-language',
+                color: '#6366f1',
+                summary: '<strong>Present Perfect:</strong> Usado para ações que aconteceram no passado mas têm conexão com o presente. Estrutura: <em>Subject + have/has + Past Participle</em>.',
+                quiz: {
+                    question: 'Escolha a frase gramaticalmente correta no Present Perfect:',
+                    options: [
+                        'I have lived in Brazil since 2010.',
+                        'I lived in Brazil since 2010.',
+                        'I has lived in Brazil since 2010.',
+                        'I am living in Brazil since 2010.'
+                    ],
+                    correct: 0,
+                    explanation: 'Usa-se "have" com o pronome "I" + o particípio passado "lived" para indicar uma ação iniciada no passado que continua no presente.'
+                },
+                toolHTML: `
+                    <div style="background: var(--bg-primary); padding: 12px; border-radius: 8px;">
+                        <h4 style="color: #6366f1; margin-bottom:8px;">Guia Rápido: Have vs. Has</h4>
+                        <ul style="font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+                            <li><strong>I / You / We / They</strong> → <code>HAVE</code> (Ex: They have studied)</li>
+                            <li><strong>He / She / It</strong> → <code>HAS</code> (Ex: She has finished)</li>
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        // Troca de Abas Principais
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            event.currentTarget.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        // Seleção Dinâmica de Matéria
+        let currentSubjectKey = 'math';
+
+        function selectSubject(key) {
+            currentSubjectKey = key;
+            document.querySelectorAll('.subject-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderSubjectContent();
+        }
+
+        // Renderiza o conteúdo da matéria selecionada
+        function renderSubjectContent() {
+            const data = subjectsData[currentSubjectKey];
+            const container = document.getElementById('subject-container');
+
+            container.innerHTML = `
+                <div class="card">
+                    <h2 class="card-title">
+                        <i class="fa-solid ${data.icon}" style="color: ${data.color};"></i> 
+                        ${data.title}
+                    </h2>
+
+                    <!-- Resumo Téorico -->
+                    <div class="summary-box" style="border-left-color: ${data.color};">
+                        <h3><i class="fa-solid fa-lightbulb"></i> Resumo Rápido</h3>
+                        <p>${data.summary}</p>
+                    </div>
+
+                    <!-- Ferramenta / Calculadora Interativa da Matéria -->
+                    <div style="margin-bottom: 24px;">
+                        <h3 style="font-size: 1rem; margin-bottom: 10px; color: var(--text-main);">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Ferramenta Interativa
+                        </h3>
+                        ${data.toolHTML}
+                    </div>
+
+                    <!-- Quiz Interativo -->
+                    <div>
+                        <h3 style="font-size: 1rem; margin-bottom: 12px; color: var(--text-main);">
+                            <i class="fa-solid fa-circle-question"></i> Quiz de Fixação
+                        </h3>
+                        <p style="margin-bottom: 12px; font-weight: 500;">${data.quiz.question}</p>
+                        <div id="quiz-options">
+                            ${data.quiz.options.map((opt, idx) => `
+                                <div class="quiz-option" onclick="checkQuizAnswer(${idx})">
+                                    <span>${String.fromCharCode(65 + idx)})</span> ${opt}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div id="quiz-feedback" class="feedback-box"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Verifica resposta do Quiz
+        function checkQuizAnswer(selectedIdx) {
+            const quiz = subjectsData[currentSubjectKey].quiz;
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('quiz-feedback');
+
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none'; // Desabilita novos cliques
+                if (idx === quiz.correct) {
+                    opt.classList.add('correct');
+                } else if (idx === selectedIdx) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            feedback.style.display = 'block';
+            if (selectedIdx === quiz.correct) {
+                feedback.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+                feedback.style.color = '#4ade80';
+                feedback.innerHTML = `<strong><i class="fa-solid fa-circle-check"></i> Parabéns, Resposta Correta!</strong><br>${quiz.explanation}`;
+            } else {
+                feedback.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                feedback.style.color = '#f87171';
+                feedback.innerHTML = `<strong><i class="fa-solid fa-circle-xmark"></i> Resposta Incorreta!</strong><br>${quiz.explanation}`;
+            }
+        }
+
+        // Ferramenta Matemática: Regra de Três
+        function calcRegraDeTres() {
+            const a = parseFloat(document.getElementById('r3_a').value);
+            const b = parseFloat(document.getElementById('r3_b').value);
+            const c = parseFloat(document.getElementById('r3_c').value);
+
+            if (a && b && c) {
+                const x = (b * c) / a;
+                document.getElementById('r3-res').innerText = `Resultado: X = ${x.toFixed(2)}`;
+            } else {
+                document.getElementById('r3-res').innerText = 'Por favor, preencha todos os campos!';
+            }
+        }
+
+        // Ferramenta Português: Testador de Crase
+        function testCrase() {
+            const word = document.getElementById('craseSubst').value.trim();
+            const res = document.getElementById('crase-res');
+            if (word) {
+                res.innerHTML = `Teste: "Vou <strong>ao ${word}</strong>". Como virou <strong>"ao"</strong>, antes da palavra feminina utiliza-se <strong>à (com crase)</strong>!`;
+                res.style.color = '#4ade80';
+            } else {
+                res.innerText = 'Digite uma palavra masculina para testar!';
+                res.style.color = '#f87171';
+            }
+        }
+
+        // Ferramenta Geografia: Flashcard
+        let geoState = 0;
+        function flipGeoCard() {
+            const card = document.getElementById('geoCard');
+            if (geoState === 0) {
+                card.innerHTML = '<strong>Característica:</strong> Vegetação casca grossa, árvores retorcidas e clima tropical sazonal (seco/chuvoso).';
+                card.style.borderColor = 'var(--accent-green)';
+                geoState = 1;
+            } else {
+                card.innerHTML = 'Clique para ver a característica do bioma: CERRADO';
+                card.style.borderColor = 'var(--accent-purple)';
+                geoState = 0;
+            }
+        }
+
+        // Ferramenta Física: Velocidade Média
+        function calcPhysicsSpeed() {
+            const s = parseFloat(document.getElementById('phys_s').value);
+            const t = parseFloat(document.getElementById('phys_t').value);
+            const res = document.getElementById('phys-res');
+
+            if (s && t && t > 0) {
+                const vm = s / t;
+                const ms = vm / 3.6;
+                res.innerHTML = `Velocidade Média: <strong>${vm.toFixed(1)} km/h</strong> (${ms.toFixed(1)} m/s)`;
+            } else {
+                res.innerText = 'Informe valores válidos para distância e tempo!';
+            }
+        }
+
+        // Simulador de Notas
+        function calculateGradeNeeded() {
+            const g1 = parseFloat(document.getElementById('grade1').value) || 0;
+            const g2 = parseFloat(document.getElementById('grade2').value) || 0;
+            const target = parseFloat(document.getElementById('gradeTarget').value) || 6.0;
+            const resultDiv = document.getElementById('grade-result');
+
+            // Considerando Média Aritmética de 3 Trimestres
+            const currentSum = g1 + g2;
+            const needed = (target * 3) - currentSum;
+
+            resultDiv.style.display = 'block';
+            if (needed <= 0) {
+                resultDiv.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+                resultDiv.style.color = '#4ade80';
+                resultDiv.innerHTML = '<strong><i class="fa-solid fa-circle-check"></i> Você já passou de ano!</strong> Sua soma atual é suficiente.';
+            } else if (needed <= 10) {
+                resultDiv.style.backgroundColor = 'rgba(56, 189, 248, 0.2)';
+                resultDiv.style.color = '#38bdf8';
+                resultDiv.innerHTML = `<strong>Você precisa tirar: ${needed.toFixed(1)}</strong> no 3º trimestre para passar com média ${target}.`;
+            } else {
+                resultDiv.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                resultDiv.style.color = '#f87171';
+                resultDiv.innerHTML = `<strong>Atenção!</strong> Você precisaria de ${needed.toFixed(1)}, que é maior que a nota máxima (10.0). Procure seu professor para trabalhos extras!`;
+            }
+        }
+
+        // Calculadora de Faltas
+        function calculateAbsences() {
+            const total = parseFloat(document.getElementById('totalClasses').value) || 800;
+            const current = parseFloat(document.getElementById('absences').value) || 0;
+            const resultDiv = document.getElementById('absence-result');
+
+            const maxAllowed = total * 0.25; // 25% de faltas permitidas
+            const percentage = (current / total) * 100;
+            const remaining = maxAllowed - current;
+
+            resultDiv.style.display = 'block';
+            if (current > maxAllowed) {
+                resultDiv.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
+                resultDiv.style.color = '#f87171';
+                resultDiv.innerHTML = `<strong><i class="fa-solid fa-triangle-exclamation"></i> Risco de Reprovação!</strong> Você já possui ${percentage.toFixed(1)}% de faltas (${current} aulas). O limite máximo legal é ${maxAllowed} aulas.`;
+            } else {
+                resultDiv.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
+                resultDiv.style.color = '#4ade80';
+                resultDiv.innerHTML = `<strong>Situação Regular:</strong> Você tem ${percentage.toFixed(1)}% de faltas. Você ainda pode faltar até <strong>${remaining.toFixed(0)} aulas</strong> sem estourar o limite de 25%.`;
+            }
+        }
+
+        // Cronômetro Pomodoro
+        let timerInterval = null;
+        let timeLeft = 25 * 60; // 25 minutos em segundos
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer-display').innerText = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    alert('Tempo esgotado! Hora de fazer uma pausa de 5 minutos.');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = 25 * 60;
+            updateTimerDisplay();
+        }
+
+        // Checklist de Tarefas com localStorage
+        let tasks = JSON.parse(localStorage.getItem('school_tasks')) || [
+            { id: 1, title: 'Estudar para Prova de Matemática', priority: 'Alta', done: false },
+            { id: 2, title: 'Ler capítulo de Geografia', priority: 'Média', done: true }
+        ];
+
+        function saveAndRenderTasks() {
+            localStorage.setItem('school_tasks', JSON.stringify(tasks));
+            const listDiv = document.getElementById('todo-list');
+            listDiv.innerHTML = '';
+
+            if (tasks.length === 0) {
+                listDiv.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem; text-align:center;">Nenhuma tarefa pendente!</p>';
+                return;
+            }
+
+            tasks.forEach(task => {
+                const badgeClass = task.priority === 'Alta' ? 'badge-red' : (task.priority === 'Média' ? 'badge-yellow' : 'badge-green');
+                listDiv.innerHTML += `
+                    <div class="todo-item priority-${task.priority} ${task.done ? 'done' : ''}">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleTask(${task.id})">
+                            <span>${task.title}</span>
+                            <span class="badge ${badgeClass}">${task.priority}</span>
+                        </div>
+                        <button style="background:none; border:none; color:var(--accent-red); cursor:pointer;" onclick="deleteTask(${task.id})">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function addTask() {
+            const input = document.getElementById('taskTitle');
+            const prioritySelect = document.getElementById('taskPriority');
+            const title = input.value.trim();
+
+            if (title) {
+                tasks.push({
+                    id: Date.now(),
+                    title: title,
+                    priority: prioritySelect.value,
+                    done: false
+                });
+                input.value = '';
+                saveAndRenderTasks();
+            }
+        }
+
+        function toggleTask(id) {
+            tasks = tasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
+            saveAndRenderTasks();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveAndRenderTasks();
+        }
+
+        // Inicialização na carga da página
+        window.onload = function() {
+            renderSubjectContent();
+            saveAndRenderTasks();
+        };
+    </script>
+</body>
+</html>
